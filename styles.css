@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+:root{
+    --bgColor: #050505;
+    --textp:#ffff;
+    --texts:#666;
+    --primary:rgb(252, 114, 22);
+
+
+}
+main{
+    width: 1200px;
+    margin: 50px auto;
+}
+
+body{
+    font-family: 'MuseoModerno',sans-serif;
+    background-color: var(--bgColor);
+    color: var(--textp);
+    font-size: 1.4rem;
+}
+h1{
+    color: var(--primary);
+}
+h1 svg{
+    width:40px;
+    fill: var(--primary);
+}
+
+#header{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 20px 6px 30px;
+
+}
+
+#buttons{
+    text-align: right ;
+}
+
+#info{
+    color: var(--primary);
+}
+
+button{
+    background-color: #484848;
+    border:0;
+    color: #ffff;
+    padding: 5px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bolder;
+    font-family: 'MuseoModerno';
+
+}
+button:hover{
+    background-color: var(--primary);
+    color: #050505;
+    font-weight: bolder;
+    font-family: 'MuseoModerno';
+}
+
+div#game{
+    line-height: 35px;
+    height: 105px;
+    overflow: hidden;
+    position: relative;
+}
+
+#words{
+    color: var(--texts);
+}
+
+
+div.word{
+    display: inline-block;
+    font-family: 'Roboto Mono',monospace;
+    margin: 0 5px;
+}
+
+.letter.correct{
+    color:#fff
+}
+
+.letter.incorrect{
+    color: #f55;
+}
+
+@keyframes blink {
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+    
+}
+
+#cur{
+    display: none;
+    width: 2px;
+    height: 1.6rem;
+    background: var(--primary);
+    position: fixed;
+    top: 222px;
+    left: 148px;
+    animation: blink .5s infinite;
+}
+
+#game:focus #cur{
+    display: block;
+}
+div#game:focus {
+    outline: 0;
+    
+}
