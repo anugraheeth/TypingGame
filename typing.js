@@ -2,6 +2,7 @@ const words = 'in one good real one not school set they state high life consider
 const wordCount = words.length;
 const gameTime = 30 * 1000;
 window.timer = null;
+window.gamestart = null;
 
 function rand(){
     const randind = Math.ceil(Math.random() * wordCount)
@@ -28,9 +29,32 @@ function newGame() {
     }
    addClass(document.querySelector('.word'),'current')
    addClass(document.querySelector('.letter'),'current')
+   document.getElementById('info').innerHTML = gameTime /1000 +'';
    window.timer = null;
 }
 
+
+function wpm() {
+    const wrd = [...document.querySelectorAll('.word')];
+    const lastWord = document.querySelector('.word.current');
+    const lastWordIndex = wrd.indexOf(lastWord);
+    const typed = wrd.slice(0,lastWordIndex);
+    const correctword = typed.filter(word =>{
+        const ltrs = [...word.children];
+        const inc = ltrs.filter(letter => letter.className.includes('incorrect'));
+        const cor = ltrs.filter(letter => letter.className.includes('correct'));
+        return inc.length === 0 && cor.length === ltrs.length;
+    });
+    return correctword.length / gameTime * 60000;
+}
+
+
+function gameover(){
+    clearInterval(window.timer);
+    addClass(document.getElementById('game'),'over');
+    const result = wpm();
+    document.getElementById('info').innerHTML = `WPM : ${result}`;
+}
 
 document.getElementById('game').addEventListener('keyup',ev =>{
     const key= ev.key;
@@ -41,11 +65,29 @@ document.getElementById('game').addEventListener('keyup',ev =>{
     const isSpace = key === ' ';
     const isBSapace = key === 'Backspace';
     const isFirst = curletter === curword.firstChild;
+
+
+
+
+    if(document.querySelector('#game.over')){
+        return;
+    }
     
 
     if(!window.timer && isLetter){
         window.timer = setInterval(()=>{
-            
+            if(!window.gamestart){
+                window.gamestart = new Date().getTime();
+            }
+            const curTime = new Date().getTime();
+            const timePassed = curTime-window.gamestart;
+            const sPassed = Math.round(timePassed / 1000); 
+            const sLeft = (gameTime /1000) -sPassed;
+            if(sLeft <= 0){
+                gameover();
+                return;
+            }
+            document.getElementById('info').innerHTML = sLeft + '';
         },1000);
     }
 
@@ -113,7 +155,7 @@ document.getElementById('game').addEventListener('keyup',ev =>{
         const margin= parseInt(words.style.marginTop || '0px');
         words.style.marginTop = (margin-35) + 'px';
     }
-    if(curword.getBoundingClientRect().top < 280 && isBSapace){
+    if(curword.getBoundingClientRect().top < 100 && isBSapace){
         const words = document.getElementById('words');
         const margin= parseInt(words.style.marginTop || '0px');
         words.style.marginTop = (margin+35) + 'px';
@@ -127,5 +169,10 @@ document.getElementById('game').addEventListener('keyup',ev =>{
     cursor.style.top=(nextletter || nextword).getBoundingClientRect().top + 2 + 'px';
     cursor.style.left=(nextletter || nextword).getBoundingClientRect()[nextletter? 'left' : 'right'] + 'px';
 
-})
+});
+
+document.getElementById('start').addEventListener('click', ()=>{
+    gameover();
+    newGame();
+});
 newGame();
