@@ -175,4 +175,13 @@ document.getElementById('start').addEventListener('click', ()=>{
     gameover();
     newGame();
 });
+
+
 newGame();
+
+const wth = window.screen.width;
+if (wth< 600){
+    document.getElementById('err').style.display = 'block';
+    document.getElementById('game').style.display ='none';
+    document.getElementById('header').style.display ='none';
+}

@@ -126,3 +126,11 @@ div#game:focus {
     display: none;
      
 }
+
+#err{
+    display: block;
+    align-items: center;
+    justify-content: center;
+}
+
+
