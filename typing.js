@@ -31,6 +31,7 @@ function newGame() {
    addClass(document.querySelector('.letter'),'current')
    document.getElementById('info').innerHTML = gameTime /1000 +'';
    window.timer = null;
+   window.gamestart = null;
 }
 
 
@@ -172,12 +173,10 @@ document.getElementById('game').addEventListener('keyup',ev =>{
 });
 
 document.getElementById('start').addEventListener('click', ()=>{
-    gameover();
+    clearInterval(window.timer);
+    removeClass(game,'over');
     newGame();
 });
-
-
-newGame();
 
 const wth = window.screen.width;
 if (wth< 600){
@@ -185,3 +184,5 @@ if (wth< 600){
     document.getElementById('game').style.display ='none';
     document.getElementById('header').style.display ='none';
 }
+newGame();
+
