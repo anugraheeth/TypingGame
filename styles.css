@@ -128,9 +128,29 @@ div#game:focus {
 }
 
 #err{
-    display: block;
+    display: none;
     align-items: center;
     justify-content: center;
 }
 
 
+@media(max-width: 500px){
+    *{
+        font-family: 0.8rem;
+        max-width: 500px;
+    }
+    #err{
+        display: flex;
+        max-width: 400px;
+        font-size: 0.8rem;
+        align-items: center;
+        justify-content: center;
+        padding: 2%;
+    }
+    #game{
+        display: none;
+    }
+    #header{
+        display: none;
+    }
+}
