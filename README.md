@@ -22,7 +22,9 @@ TypeNinja is a fun and interactive typing game designed to help improve your typ
 - `styles.css`: The CSS file for styling the game.
 - `typing.js`: The JavaScript file containing the game logic.
 
+## Live Demo
 
+[Click here to see the live demo](https://anugraheeth.github.io/TypingGame/)
 
 ## Installation
 
